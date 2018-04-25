@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params} from '@angular/router';
+import { DataService} from '../../services/data.service';
+import { Problem } from '../../models/problem.model';
+
 
 @Component({
   selector: 'app-problem-detail',
@@ -7,9 +11,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProblemDetailComponent implements OnInit {
 
-  constructor() { }
+  problem: Problem;
+
+  constructor(private dataService: DataService, 
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe(params => 
+      this.problem = this.dataService.getProblem(+params['id']))
+
   }
 
 }
